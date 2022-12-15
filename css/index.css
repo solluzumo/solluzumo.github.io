@@ -1,0 +1,87 @@
+#profile{
+    width: 1470px;
+    position: relative;
+    left: 11vw;
+}
+
+#avatar{
+    position: absolute;
+    width: 21vw;
+    bottom: -10vw;
+    left: 6vw;
+}
+#fio{
+    position: absolute;
+    bottom: -3vw;
+    left: 27vw;
+    font-size: 1.7vw;
+    width: 14vw;
+    text-align: right;
+    font-family: 'Maven Pro', sans-serif;
+}
+#dev{
+    position: absolute;
+    bottom: -5vw;
+    left: 29vw;
+    font-size: 1.7vw;
+    width: 12vw;
+    text-align: right;
+    font-family: 'Maven Pro', sans-serif;
+
+}
+#links-header{
+    position: absolute;
+    bottom: -7vw;
+    left: 29vw;
+    font-size: 1.7vw;
+    width: 12vw;
+    text-align: right;
+    font-family: 'Maven Pro', sans-serif;
+}
+#links-list{
+    position: absolute;
+    bottom: -11vw;
+    right: 36vw;
+    font-size: 1.7vw;
+    text-align: right;
+    font-family: 'Maven Pro', sans-serif;
+
+}
+
+li{
+    list-style-type:none;
+    display: inline;
+    padding-left: 0.5vw;
+}
+
+
+
+@media screen and (min-width: 600px) {
+    ul {
+        flex-direction: row;
+    }
+}
+
+
+a {
+    color: #000000;
+    text-decoration: none;
+    position: relative;
+
+}
+
+a:hover::after {
+  width: 100%;
+  right: 0;
+}
+
+a::after {
+      bottom: 0;
+      content: "";
+      height: 4px;
+      right: 0;
+      position: absolute;
+      background: linear-gradient(to left, #d48fff, #ffe584 100%);
+      transition: width .5s ease 0s, right .5s ease 0s;
+      width: 0;
+}
