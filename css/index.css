@@ -1,67 +1,66 @@
 #profile{
-    width: 1470px;
+    width: 100%;
     position: relative;
-    left: 11vw;
 }
 
 #avatar{
     position: absolute;
-    width: 21vw;
-    bottom: -10vw;
-    left: 6vw;
+    width: 20%;
+    bottom: -70%;
+    left: 42%;
+}
+#background{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#imgs{
+    max-width: 100%;
+    max-height: 100%;
 }
 #fio{
     position: absolute;
-    bottom: -3vw;
-    left: 27vw;
-    font-size: 1.7vw;
-    width: 14vw;
+    bottom: -13%;
+    left: -5.5%;
+    font-size: 194.7%;
+    width: 47%;
     text-align: right;
     font-family: 'Maven Pro', sans-serif;
 }
 #dev{
     position: absolute;
-    bottom: -5vw;
-    left: 29vw;
-    font-size: 1.7vw;
-    width: 12vw;
+    bottom: -26%;
+    left: -5.5%;
+    font-size: 194.7%;
+    width: 47%;
     text-align: right;
     font-family: 'Maven Pro', sans-serif;
 
 }
 #links-header{
     position: absolute;
-    bottom: -7vw;
-    left: 29vw;
-    font-size: 1.7vw;
-    width: 12vw;
+    bottom: -39%;
+    left: -5.5%;
+    font-size: 194.7%;
+    width: 47%;
     text-align: right;
     font-family: 'Maven Pro', sans-serif;
 }
 #links-list{
     position: absolute;
-    bottom: -11vw;
-    right: 36vw;
-    font-size: 1.7vw;
+    bottom: -60%;
+    left: 17.5%;
+    font-size: 194.7%;
     text-align: right;
     font-family: 'Maven Pro', sans-serif;
 
 }
 
-li{
+#links-list li{
     list-style-type:none;
     display: inline;
     padding-left: 0.5vw;
 }
-
-
-
-@media screen and (min-width: 600px) {
-    ul {
-        flex-direction: row;
-    }
-}
-
 
 a {
     color: #000000;
@@ -84,4 +83,138 @@ a::after {
       background: linear-gradient(to left, #d48fff, #ffe584 100%);
       transition: width .5s ease 0s, right .5s ease 0s;
       width: 0;
+}
+@media (max-width: 1660px){
+    #links-list{
+        position: absolute;
+        bottom: -61%;
+        left: 13.5%;
+        font-size: 194.7%;
+        text-align: right;
+        font-family: 'Maven Pro', sans-serif;
+
+    }
+    #imgs{
+        max-width: 93%;
+    }
+}
+/* Для экранов шириной между 1248 и 1450 */
+@media (max-width: 1450px){
+    #links-list{
+        position: absolute;
+        bottom: -61%;
+        left: 10.9%;
+        font-size: 194.7%;
+        text-align: right;
+        font-family: 'Maven Pro', sans-serif;
+
+    }
+    #imgs{
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 1350px){
+    #links-list{
+        position: absolute;
+        bottom: -61%;
+        left: 7.9%;
+        font-size: 194.7%;
+        text-align: right;
+        font-family: 'Maven Pro', sans-serif;
+
+    }
+     #imgs{
+        max-width: 87%;
+    }
+}
+@media (max-width: 1250px){
+    #links-list{
+        position: absolute;
+        bottom: -74%;
+        left: 4.9%;
+        font-size: 194.7%;
+        text-align: right;
+        font-family: 'Maven Pro', sans-serif;
+
+    }
+
+    #links-header{
+        bottom: -46%;
+    }
+    #dev{
+        bottom: -33%;
+    }
+    #fio{
+        bottom: -19%;
+    }
+
+     #imgs{
+        max-width: 84%;
+    }
+}
+@media (max-width: 1150px){
+    #links-list{
+        position: absolute;
+        bottom: -87%;
+        left: 1.9%;
+        font-size: 194.7%;
+        text-align: right;
+        font-family: 'Maven Pro', sans-serif;
+
+    }
+     #imgs{
+        max-width: 81%;
+    }
+     #avatar{
+         width: 25%;
+     }
+}
+@media (max-width: 1050px){
+    #links-list{
+        position: absolute;
+        bottom: -100%;
+        left: -1.1%;
+        font-size: 194.7%;
+        text-align: right;
+        font-family: 'Maven Pro', sans-serif;
+
+    }
+    #dev{
+        bottom: -46%;
+    }
+    #fio{
+        bottom: -28%;
+    }
+    #links-header{
+        bottom: -62%;
+    }
+
+     #imgs{
+        max-width: 78%;
+    }
+}
+@media (max-width: 950px){
+    #links-list{
+        position: absolute;
+        bottom: -139%;
+        left: 62.9%;
+        font-size: 194.7%;
+        text-align: left;
+        font-family: 'Maven Pro', sans-serif;
+        width: 10%;
+
+    }
+    #dev{
+        bottom: -56%;
+    }
+    #fio{
+        bottom: -34%;
+    }
+    #links-header{
+        visibility: hidden;
+    }
+     #imgs{
+        max-width: 75%;
+    }
 }
