@@ -1,3 +1,3 @@
-# solluzumo.github.io
+## solluzumo.github.io
 
-This is a business card site
+This is a business card site.
