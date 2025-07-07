@@ -1,31 +1,409 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>hello</title>
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@500;700&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet"></head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Визитка Backend разработчика</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Consolas', 'Source Code Pro', monospace;
+            background: linear-gradient(135deg, #1a1f2b, #0f1420);
+            color: #e6e6e6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Стили для заголовка редактора */
+        .editor-header {
+            background: #2d2d2d;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #121212;
+        }
+        
+        .window-controls {
+            display: flex;
+            gap: 8px;
+            margin-right: 15px;
+        }
+        
+        .window-control {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .close { background: #ff5f56; }
+        .minimize { background: #ffbd2e; }
+        .maximize { background: #27c93f; }
+        
+        .file-name {
+            color: #888;
+            font-size: 14px;
+            flex-grow: 1;
+        }
+        
+        /* Основное содержимое редактора */
+        .editor-container {
+            display: flex;
+            min-height: 500px;
+        }
+        
+        /* Левая панель - проводник */
+        .explorer {
+            width: 220px;
+            background: #252526;
+            border-right: 1px solid #121212;
+            padding: 15px 0;
+        }
+        
+        .explorer-title {
+            padding: 5px 15px;
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .file-tree {
+            padding: 10px 0;
+        }
+        
+        .file-item {
+            padding: 8px 15px 8px 30px;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+            position: relative;
+        }
+        
+        .file-item.active {
+            background: #094771;
+        }
+        
+        .file-item:hover {
+            background: #2a2d2e;
+        }
+        
+        .file-item i {
+            margin-right: 8px;
+            color: #4b6baf;
+            font-size: 14px;
+        }
+        
+        .file-item.active i {
+            color: #3794ff;
+        }
+        
+        /* Основная область редактора */
+        .editor-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .editor-tabs {
+            background: #252526;
+            border-bottom: 1px solid #121212;
+            display: flex;
+            padding-left: 5px;
+        }
+        
+        .editor-tab {
+            padding: 8px 15px;
+            background: #2d2d2d;
+            border-right: 1px solid #121212;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .editor-tab.active {
+            background: #1e1e1e;
+            color: #fff;
+        }
+        
+        .editor-tab i {
+            margin-right: 5px;
+            font-size: 13px;
+        }
+        
+        /* Область с кодом */
+        .code-area {
+            display: flex;
+            flex-grow: 1;
+            overflow: hidden;
+        }
+        
+        .line-numbers {
+            background: #1e1e1e;
+            color: #6a9955;
+            text-align: right;
+            padding: 15px 10px;
+            font-size: 14px;
+            user-select: none;
+            width: 50px;
+            line-height: 1.6;
+        }
+        
+        .code-content {
+            flex-grow: 1;
+            padding: 15px 0;
+            overflow: auto;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+        
+        /* Стили для JSON-контента */
+        .json-key {
+            color: #9cdcfe;
+        }
+        
+        .json-value {
+            color: #ce9178;
+        }
+        
+        .json-string {
+            color: #ce9178;
+        }
+        
+        .json-number {
+            color: #b5cea8;
+        }
+        
+        .json-boolean {
+            color: #569cd6;
+        }
+        
+        .json-null {
+            color: #569cd6;
+        }
+        
+        .json-object {
+            padding-left: 20px;
+        }
+        
+        .json-array {
+            padding-left: 20px;
+        }
+        
+        .json-indent {
+            padding-left: 20px;
+        }
+        
+        .json-comment {
+            color: #6a9955;
+            font-style: italic;
+        }
+        
+        .github-link {
+            color: #3794ff;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .github-link:hover {
+            color: #70b7ff;
+            text-decoration: underline;
+        }
+        
+        /* Статус-бар */
+        .status-bar {
+            background: #0078d4;
+            padding: 5px 15px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #e1e1e1;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* Анимации */
+        @keyframes cursor-blink {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 18px;
+            background: #d4d4d4;
+            margin-left: 2px;
+            vertical-align: middle;
+            animation: cursor-blink 1s infinite;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .explorer {
+                width: 50px;
+            }
+            
+            .file-item span {
+                display: none;
+            }
+            
+            .file-item {
+                padding: 10px 15px;
+                justify-content: center;
+            }
+            
+            .file-item i {
+                margin-right: 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .editor-tabs span {
+                display: none;
+            }
+            
+            .editor-tab {
+                padding: 8px 12px;
+            }
+        }
+    </style>
+</head>
 <body>
-
-    <section id="body">
-        <section id="profile">
-            <img id="avatar" src="me.png" alt="">
-            <div id="background"><img id="imgs" src="background.png" alt=""></div>
-
-            <section id="fio">Zimin Ilya, 21 y.o.</section>
-            <section id="dev">Back-end dev.</section>
-            <section id="links-header">links:</section>
-            <ul id="links-list">
-                <li><a href="mailto:solluzumo1@gmail.com">mail</a></li>
-                <li><a href="https://t.me/kaiju60">telegram</a></li>
-                <li><a href="https://habr.com/ru/users/kaijutrsh/">habr</a></li>
-                <li><a href="https://github.com/solluzumo?tab=repositories">github</a></li>
-            </ul>
-        </section>
-
-
-    </section>
+    <div class="container">
+        <!-- Заголовок редактора -->
+        <div class="editor-header">
+            <div class="window-controls">
+                <div class="window-control close"></div>
+                <div class="window-control minimize"></div>
+                <div class="window-control maximize"></div>
+            </div>
+            <div class="file-name">backend-developer.json — Визитная карточка</div>
+        </div>
+        
+        <!-- Основное содержимое -->
+        <div class="editor-container">
+            <!-- Левая панель - проводник -->
+            <div class="explorer">
+                <div class="explorer-title">ПРОВОДНИК</div>
+                <div class="file-tree">
+                    <div class="file-item active">
+                        <i class="fas fa-file-code"></i>
+                        <span>backend-developer.json</span>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!-- Основная область редактора -->
+            <div class="editor-content">
+                <!-- Вкладки редактора -->
+                <div class="editor-tabs">
+                    <div class="editor-tab active">
+                        <i class="fas fa-file-code"></i>
+                        <span>backend-developer.json</span>
+                    </div>
+                </div>
+                
+                <!-- Область с кодом -->
+                <div class="code-area">
+                    <!-- Номера строк -->
+                    <div class="line-numbers">
+                        1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20
+                    </div>
+                    
+                    <!-- JSON-контент -->
+                    <div class="code-content">
+                        <pre>{</pre>
+                        <pre>  <span class="json-key">"name"</span>: <span class="json-value">"Илья"</span>,</pre>
+                        <pre>  <span class="json-key">"position"</span>: <span class="json-value">"Backend разработчик"</span>,</pre>
+                        <pre>  <span class="json-key">"specialization"</span>: <span class="json-value">"Разработка серверных приложений"</span>,</pre>
+                        <pre>  <span class="json-key">"experience"</span>: <span class="json-number">2</span>, <span class="json-comment">// лет в разработке</span></pre>
+                        <pre>  <span class="json-key">"technologies"</span>: [</pre>
+                        <pre>    <span class="json-value">"GoLang"</span></pre>
+                        <pre>    <span class="json-value">"Python"</span>,</pre>
+                        <pre>    <span class="json-value">"Django"</span>,</pre>
+                        <pre>    <span class="json-value">"Flask"</span>,</pre>
+                        <pre>    <span class="json-value">"PostgreSQL"</span>,</pre>
+                        <pre>    <span class="json-value">"Redis"</span>,</pre>
+                        <pre>    <span class="json-value">"Docker"</span>,</pre>
+                        <pre>    <span class="json-value">"REST API"</span></pre>                         
+                        <pre>  ],</pre>
+                        <pre>  <span class="json-key">"contact"</span>: {</pre>
+                        <pre>    <span class="json-key">"email"</span>: <span class="json-value">"solluzumo1@gmail.com"</span>,</pre>
+                        <pre>    <span class="json-key">"telegram"</span>: <span class="json-value">"@kaijutrsh"</span>,</pre>
+                        <pre>  },</pre>
+                        <pre>  <span class="json-key">"portfolio"</span>: <a href="https://github.com/solluzumo" target="_blank" class="github-link">"https://github.com/solluzumo"</a><span class="cursor"></span></pre>
+                        <pre>}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Статус-бар -->
+        <div class="status-bar">
+            <div class="status-item">
+                <i class="fas fa-code-branch"></i>
+                <span>main</span>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-check-circle"></i>
+                <span>Prettier</span>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-bug"></i>
+                <span>0 errors</span>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-globe"></i>
+                <span>UTF-8</span>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-file-code"></i>
+                <span>JSON</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Эффект мигающего курсора
+        setInterval(() => {
+            const cursor = document.querySelector('.cursor');
+            cursor.style.visibility = cursor.style.visibility === 'hidden' ? 'visible' : 'hidden';
+        }, 500);
+        
+        // Имитация активного файла в проводнике
+        document.querySelectorAll('.file-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.file-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
 </body>
 </html>
-
